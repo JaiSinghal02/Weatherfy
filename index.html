@@ -9,7 +9,20 @@
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
-        
+        <div class="header-div"></div>
+        <div class="content-div">
+            <div class="country-div">
+                <div class="country-search-box">
+                    <p>Search Max/Min Weather</p>
+                    <input type="text" placeholder="Enter Country" class="search-bar" id="country-input">
+                    <input type="submit" value="Search" class="search-button" onclick="fetchCountryWeather(this)">
+                </div>
+                <div class="country-result-box">
+
+                </div>
+            </div>
+            <div class="city-div"></div>
+        </div>
 
         <script src="js/script.js" async defer></script>
     </body>

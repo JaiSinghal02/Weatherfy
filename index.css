@@ -1,0 +1,49 @@
+.header-div{
+    height: 150px;
+}
+
+.content-div{
+    display: flex;
+    flex-direction: column;
+}
+
+.country-div{
+    min-height: 200px;
+    width: 100%;
+}
+
+.country-search-box{
+    padding-left: 20%;
+}
+.country-search-box p{
+    margin-top:0;
+    font-size: calc(1.8vw + 10px);
+}
+.search-bar{
+    width: 50%;
+    height: 45px;
+    font-size: calc(1vw + 15px);
+    outline: none;
+    border:none;
+    border-bottom: 2px solid grey;
+}
+.search-button{
+    width: 15%;
+    min-width: 58px;
+    height: 35px;
+    border-radius: 10px;
+    border: 1px solid green;
+    outline:none;
+    background-color: rgb(60, 228, 60);
+    color:white;
+    box-shadow: 3px 3px 6px rgb(122 214 125 / 66%);
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.disabled-button{
+    background-color: rgb(91, 114, 91);
+    cursor: not-allowed;
+    box-shadow: none;
+    border: none;
+}
