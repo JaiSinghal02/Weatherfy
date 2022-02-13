@@ -11,17 +11,20 @@
     <body>
         <div class="header-div"></div>
         <div class="content-div">
-            <div class="country-div">
-                <div class="country-search-box">
-                    <p>Search Max/Min Weather</p>
-                    <input type="text" placeholder="Enter Country" class="search-bar" id="country-input">
-                    <input type="submit" value="Search" class="search-button" onclick="fetchCountryWeather(this)">
+                <div class="search-box">
+                    <p>Search Weather</p>
+                    <input type="text" placeholder="Enter City" class="search-bar" id="city-input">
+                    <input type="submit" value="Search" class="search-button" onclick="fetchCityWeather(this)">
                 </div>
-                <div class="country-result-box">
-
+                <div class="result-box-div" id="show-box">
+                    <!-- Weather results go here -->
                 </div>
-            </div>
-            <div class="city-div"></div>
+                <div class="preference-div">
+                    <div class="preference-box">
+                        <div class="preference-title">Preferences:</div>
+                        <div class="preference-tags" onclick="preferenceTagSearch(this.innerText)"></div>
+                    </div>
+                </div>
         </div>
 
         <script src="js/script.js" async defer></script>
