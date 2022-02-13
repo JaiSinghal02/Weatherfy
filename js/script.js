@@ -3,8 +3,11 @@ const key = 'a4f5282e1bb6203e2bfdf687d34b2c6f'
 function updatePreferenceCookie(place){
     var array = JSON.parse(localStorage.getItem('preference'))
     if(!array) array=[]
+    for(let i in array){
+        if(array[i]===place.toLowerCase()) return
+    }
     if(array.length===5) array.pop()
-    array.unshift(place)
+    array.unshift(place.toLowerCase())
     localStorage.setItem('preference',JSON.stringify(array))
 }
 
@@ -29,24 +32,41 @@ function showPreferenceTags(){
     preferenceTagBox.innerHTML=''
     preferences.forEach((preference)=>{
         preferenceTagBox.innerHTML +=`
-            <div class="preference-tag">${preference}</div> 
+            <div class="preference-tag" onclick="preferenceTagSearch(this.innerText)" >${preference}</div> 
         `
 
     })
+}
+async function preferenceTagSearch(cityTag){
+    console.log(checkRepeatedData(cityTag))
+    if(!checkRepeatedData(cityTag)){
+        const [lat,lon,name] = await getCoordinates(cityTag)
+        if(lat!==null){
+            const data = await getWeatherData(lat,lon)
+            // console.log(data)
+            const maxTemp = data.main.temp_max
+            const minTemp = data.main.temp_min
+            const temp = data.main.temp
+            const weather = data.weather[0].description
+            const iconId = data.weather[0].icon
+            showResult(name,temp,iconId,weather)
+            // console.log(maxTemp,minTemp)
+        }
+    }
 }
 
 function showResult (cityName,cityTemp,cityWeatherIcon,cityWeather){
     const resultBoxElement = document.getElementsByClassName('result-box-div')[0]
     const resultBoxes = resultBoxElement.getElementsByClassName('result-box')
     const numberOfResultBoxes = resultBoxes.length
-    console.log('lenght=',numberOfResultBoxes)
     let id = 0
     if(numberOfResultBoxes > 0) {
         id=parseInt(resultBoxes[numberOfResultBoxes-1].id.split("-")[1])+1
     }
     if(numberOfResultBoxes >=3){
-        const indexToBeRemoved = (3*(Math.floor(numberOfResultBoxes/3)-1)) + (numberOfResultBoxes%3)
-        resultBoxes[indexToBeRemoved].style.display = 'none'
+        // const indexToBeRemoved = (3*(Math.floor(numberOfResultBoxes/3)-1)) + (numberOfResultBoxes%3)
+        // resultBoxes[indexToBeRemoved].style.display = 'none'
+        resultBoxes[0].remove()
     }
     resultBoxElement.style.contentVisibility = 'visible'
     resultBoxElement.innerHTML += `
@@ -86,7 +106,6 @@ async function getWeatherData(lat,lon){
 }
 function checkRepeatedData(cityName){
     const cities = document.getElementsByClassName('city-name')
-    console.log(cities.length,cities)
     for(let i=0;i<cities.length;++i){
         const city = cities[i].innerText.toLowerCase()
         if(city===cityName.toLowerCase()) return true
