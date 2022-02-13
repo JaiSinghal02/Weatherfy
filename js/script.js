@@ -38,7 +38,6 @@ function showPreferenceTags(){
     })
 }
 async function preferenceTagSearch(cityTag){
-    console.log(checkRepeatedData(cityTag))
     if(!checkRepeatedData(cityTag)){
         const [lat,lon,name] = await getCoordinates(cityTag)
         if(lat!==null){
@@ -74,7 +73,7 @@ function showResult (cityName,cityTemp,cityWeatherIcon,cityWeather){
         <p class="city-name">${cityName}</p>
         <p class="city-temp">${cityTemp} <sup id="degree">&#8451;</sup></p>
         <div class="weather-div">
-            <div class="weather-icon" style="background-image: url(http://openweathermap.org/img/wn/${cityWeatherIcon}@2x.png)"></div>
+            <div class="weather-icon" style="background-image: url(https://openweathermap.org/img/wn/${cityWeatherIcon}@2x.png)"></div>
             <div class="weather-name">${cityWeather}</div>
         </div>
     </div>`
@@ -82,7 +81,7 @@ function showResult (cityName,cityTemp,cityWeatherIcon,cityWeather){
 
 async function getCoordinates(location){
     try{
-        var data = await (await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=5&appid=${key}`)).json()
+        var data = await (await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=5&appid=${key}`)).json()
         // console.log(data)
         var data = data[0]
         const lat = data.lat
@@ -97,7 +96,7 @@ async function getCoordinates(location){
 }
 async function getWeatherData(lat,lon){
     try{
-        var data = await (await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`)).json()
+        var data = await (await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`)).json()
         return data
     }
     catch(err){
